@@ -522,26 +522,6 @@ sugcommand stats --performance
 sugcommand config set custom_directories '[]'
 ```
 
-## 🤝 Contributing
-
-We welcome all contributions!
-
-### Ways to contribute:
-
-1. **Bug reports**: Create issue with detailed description
-2. **Feature requests**: Describe feature and use case
-3. **Code contributions**: Pull requests with tests
-4. **Shell integrations**: Add support for new shells
-5. **Documentation**: Improve docs and examples
-6. **Testing**: Test on different platforms
-
-### Development workflow:
-
-1. Fork repository
-2. Create feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit changes (`git commit -m 'Add amazing feature'`)
-4. Push branch (`git push origin feature/amazing-feature`)
-5. Create Pull Request
 
 ## 📝 Changelog
 
@@ -566,19 +546,8 @@ We welcome all contributions!
 
 This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
 
-## 🙏 Acknowledgments
 
-- Thanks to the Python community for amazing libraries
-- Inspired by fish shell autocompletion
-- Thanks to all beta testers and contributors
 
-## 📞 Support
-
-- 🐛 **Bug reports**: [GitHub Issues](https://github.com/yourusername/sugcommand/issues)
-- 💬 **Questions**: [GitHub Discussions](https://github.com/yourusername/sugcommand/discussions)  
-- 📧 **Email**: your.email@example.com
-
----
 
 ⭐ **If you find this useful, please star the repository!** ⭐
 
