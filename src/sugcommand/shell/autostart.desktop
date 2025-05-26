@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=SugCommand Auto-Suggestion
+Comment=Auto-suggestion daemon for SugCommand
+Exec=sugcommand auto start --background
+Terminal=false
+Categories=Utility;
+StartupNotify=false 

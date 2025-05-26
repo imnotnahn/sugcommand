@@ -4,14 +4,22 @@
 ![License](https://img.shields.io/badge/license-MIT-green.svg)
 ![PyPI](https://img.shields.io/badge/PyPI-sugcommand-blue.svg)
 
+!Important: HAVING SOME BUG AND NOT FIXED YET
 **SugCommand** is an intelligent Python library that provides terminal command suggestions based on:
 - Available system commands
 - Command history analysis from different shells
 - Usage patterns and context
 - Simple machine learning algorithms
-- **🚀 REAL-TIME SHELL INTEGRATION** - Automatic suggestions while typing!
+- **🚀 NEW: REAL-TIME AUTO-SUGGESTIONS** - Automatic suggestions while typing!
 
 ## ✨ Key Features
+
+### 🎯 **NEW: Real-time Auto-Suggestions**
+- **💡 Automatic display**: Suggestions appear as you type - no Tab needed!
+- **⚡ Ultra-fast**: Sub-3ms response time
+- **🎨 Beautiful display**: Elegant suggestions below your cursor
+- **🔧 Zero config**: Works out of the box
+- **🖥️ Multi-shell**: Bash, Zsh, Fish support
 
 ### 🔍 Smart Command Detection
 - Scans all available commands from PATH and system directories

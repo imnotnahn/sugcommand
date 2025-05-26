@@ -4,12 +4,12 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "sugcommand"
-version = "0.2.0"
+version = "0.3.0"
 description = "Intelligent terminal command suggestion tool with real-time shell integration, customizable key bindings, and smart command history analysis"
 readme = "README.md"
 license = {text = "MIT"}
 authors = [
-    {name = "Your Name", email = "your.email@example.com"}
+    {name = "imnahn"}
 ]
 keywords = [
     "terminal", 

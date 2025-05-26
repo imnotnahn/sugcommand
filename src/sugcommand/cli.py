@@ -568,5 +568,108 @@ def version(ctx: click.Context) -> None:
     click.echo(f"sugcommand version {__version__}")
 
 
+@main.group()
+def auto():
+    """Manage auto-suggestion features"""
+    pass
+
+
+@auto.command()
+@click.option('--background', is_flag=True, help='Run in background')
+def start(background):
+    """Start the auto-suggestion daemon"""
+    try:
+        import subprocess
+        import sys
+        
+        if background:
+            # Start daemon in background
+            script_path = Path(__file__).parent / "shell" / "auto_suggest_daemon.py"
+            subprocess.Popen([
+                sys.executable, str(script_path), "--background"
+            ], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+            
+            # Wait a moment and check if it started
+            time.sleep(1)
+            click.echo("Auto-suggestion daemon started in background")
+        else:
+            # Start daemon in foreground
+            from sugcommand.shell.auto_suggest_daemon import main as daemon_main
+            daemon_main()
+            
+    except Exception as e:
+        click.echo(f"Error starting auto-suggestion daemon: {e}", err=True)
+        sys.exit(1)
+
+
+@auto.command()
+def stop():
+    """Stop the auto-suggestion daemon"""
+    try:
+        pid_file = Path.home() / ".config" / "sugcommand" / "auto_suggest.pid"
+        if pid_file.exists():
+            with open(pid_file) as f:
+                pid = int(f.read().strip())
+            os.kill(pid, signal.SIGTERM)
+            click.echo("Auto-suggestion daemon stopped")
+        else:
+            click.echo("Auto-suggestion daemon is not running")
+    except Exception as e:
+        click.echo(f"Error stopping auto-suggestion daemon: {e}", err=True)
+        sys.exit(1)
+
+
+@auto.command()
+def status():
+    """Check auto-suggestion daemon status"""
+    try:
+        from sugcommand.integrations.auto_suggest import AutoSuggestionClient
+        
+        pid_file = Path.home() / ".config" / "sugcommand" / "auto_suggest.pid"
+        socket_file = Path.home() / ".config" / "sugcommand" / "auto_suggest.sock"
+        
+        if pid_file.exists() and socket_file.exists():
+            # Test if daemon is responsive
+            client = AutoSuggestionClient()
+            suggestions = client.get_suggestions("test")
+            if suggestions is not None:
+                click.echo("✓ Auto-suggestion daemon is running and responsive")
+            else:
+                click.echo("⚠ Auto-suggestion daemon is running but not responsive")
+        else:
+            click.echo("✗ Auto-suggestion daemon is not running")
+            
+    except Exception as e:
+        click.echo(f"Error checking auto-suggestion daemon status: {e}", err=True)
+        sys.exit(1)
+
+
+@auto.command()
+def install():
+    """Install shell integration for auto-suggestions"""
+    try:
+        from sugcommand.integrations.auto_suggest import create_shell_integration
+        
+        config_dir = create_shell_integration()
+        
+        click.echo("Shell integration files created:")
+        click.echo(f"  Bash: {config_dir}/bash_auto_suggest.sh")
+        click.echo(f"  Zsh:  {config_dir}/zsh_auto_suggest.zsh")
+        click.echo()
+        click.echo("To enable auto-suggestions, add one of these lines to your shell config:")
+        click.echo()
+        click.echo("For Bash (~/.bashrc):")
+        click.echo(f"  source {config_dir}/bash_auto_suggest.sh")
+        click.echo()
+        click.echo("For Zsh (~/.zshrc):")
+        click.echo(f"  source {config_dir}/zsh_auto_suggest.zsh")
+        click.echo()
+        click.echo("Then restart your shell and run: sugcommand auto start --background")
+        
+    except Exception as e:
+        click.echo(f"Error installing shell integration: {e}", err=True)
+        sys.exit(1)
+
+
 if __name__ == "__main__":
     main() 
